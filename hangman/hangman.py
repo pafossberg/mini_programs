@@ -1,4 +1,6 @@
 from getpass import getpass
+# I can probaby change alot of the "Secret_word" into "secret_phrase" function calls instead.
+# -------------------------------------------------------  I Should add a prompt to ask for the amount of lives the user wants!!!!!!---------------------------
 
 # Still doesen't guard againt using a character more than once if the used character was a hit!
 # I still need to comment out all the code, didn't have time to do this before i had to go.

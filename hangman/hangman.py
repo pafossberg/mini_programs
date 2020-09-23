@@ -1,35 +1,35 @@
 from getpass import getpass
-# I can probaby change alot of the "Secret_word" into "secret_phrase" function calls instead.
-# -------------------------------------------------------  I Should add a prompt to ask for the amount of lives the user wants!!!!!!---------------------------
 
-# Still doesen't guard againt using a character more than once if the used character was a hit!
 # I still need to comment out all the code, didn't have time to do this before i had to go.
-# Note to self, comment WHILE coding.
+# I can probaby change alot of the "Secret_word" into "secret_phrase" function calls instead.
 
-def secret_phrase():
+def get_values():
     secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
     while secret_word.isalpha() == False:
         print("'" + secret_word + "'", "is not a legal phrase, ONLY alphabetic characters please!\n")
         secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
-    hangman(secret_word)
+    lives = input("Please enter the amount of lives you want to add: ")
+    while lives.isdigit() == False:
+        print("'" + lives + "'", "Is not a NUMBER.\n")
+        lives = input("Please enter the amount of lives you want to add: ")
+    hangman(secret_word, int(lives))
 
 
-def hangman(secret_word):
+def hangman(secret_word, lives):
     secret_list = list(secret_word)
-    lives = 6
     letter_hits = ["-" for item in secret_word]
     used_letters = set()
 
-    while len(secret_list) > 0 and lives > 0:
+    while len(secret_list) > 0 and int(lives) > 0:
         print('\nYou have', lives, 'lives left and you have used these letters: ', ' '.join(used_letters))
         print("Current word: ", " ".join(letter_hits))
-        letter = input("Guess a letter: ").upper()
-        used_letters.add(letter)
-        if letter.isalpha() == False:
-            print("'" + letter + "'", "is not a valid character!")
+        letter = input("Guess 1 or more letters: ").upper()
+        if letter.isalpha() == False or letter in used_letters:
+            print("\n-----'" + letter + "'", "is NOT a valid character, or has already been used!-----")
         elif letter in secret_word:
+            used_letters.add(letter)
             for a, i in enumerate(secret_word):
-                if i in letter:
+                if i in letter and i in secret_list:
                     letter_hits[a] = i
                     secret_list.remove(i)
         else:
@@ -40,5 +40,5 @@ def hangman(secret_word):
         print('\nYAY! You guessed the word:', "'" + secret_word + "'", '!!')
 
 if __name__ == '__main__':
-    secret_phrase()
+    get_values()
 

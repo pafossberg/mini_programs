@@ -1,5 +1,18 @@
 from getpass import getpass
 
+"""
+I Realize that my 'while' loops for checking if the input types are abit clunky.
+
+I researched it for a bit and found a better way to force specific outputs,
+using '.format()' and a variable with valid inputs stored. 
+
+But i deemed it unnecessary as the code needed for that with the correct 'try/except' statements added,
+would double the amount of code in my 'get_values()' function.
+
+So it stays like this until i find a more elegant solution for such a small program.
+"""
+
+
 def get_values() -> 'hangman()':
     # Sets the values for 'secre_word' and 'lives' by getting input from the user.
     # The 'secret_word value is hidden with the 'getpass' method.

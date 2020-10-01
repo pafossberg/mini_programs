@@ -2,18 +2,20 @@ from getpass import getpass
 
 class Hangman:
 
-    secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
-    while secret_word.isalpha() == False:
-        print("'" + secret_word + "'", "is not a legal phrase, ONLY alphabetic characters please!    \n")
-        secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
-
-    lives = input("Please enter the amount of lives you want to add: ")
-    while lives.isdigit() == False:
-        print("'" + lives + "'", "Is not a NUMBER.\n")
-        lives = input("Please enter the amount of lives you want to add: ")
+    while True:
+        try:
+            if not secret_word.isalpha():
+                print("\n'" + secret_word + "'", "is not a WORD.")
+                raise Exception
+            elif not lives.isdigit():
+                print("\n'" + lives + "'", "Is not a NUMBER.")
+                raise Exception
+            break
+        except Exception:
+            secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
+            lives = input("Please enter the amount of lives you want to add: ")
 
     lives = int(lives)
-
     letter_hits = ["-" for item in secret_word]
     used_letters = set() # Keeps tracks of all unique letters that have been guessed.
 
@@ -44,5 +46,6 @@ class Hangman:
         else:
             print('\nYAY! You guessed the word:', "'" + cls.secret_word + "'", '!!')
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     Hangman.matchLetter()
+

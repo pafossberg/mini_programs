@@ -1,33 +1,22 @@
 from getpass import getpass
 
-"""
-I Realize that my 'while' loops for checking if the input types are abit clunky.
-
-I researched it for a bit and found a better way to force specific outputs,
-using '.format()' and a variable with valid inputs stored. 
-
-But i deemed it unnecessary as the code needed for that with the correct 'try/except' statements added,
-would double the amount of code in my 'get_values()' function.
-
-So it stays like this until i find a more elegant solution for such a small program.
-"""
-
-
 def get_values() -> 'hangman()':
     # Sets the values for 'secre_word' and 'lives' by getting input from the user.
     # The 'secret_word value is hidden with the 'getpass' method.
 
-    secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
-    # Keeps asking for input if 'secret_word' contains anything else than alphabetic characters.
-    while secret_word.isalpha() == False: 
-        print("'" + secret_word + "'", "is not a legal phrase, ONLY alphabetic characters please!\n")
-        secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
-
-    lives = input("Please enter the amount of lives you want to add: ")
-    # Keeps asking for input if 'lives' contains anything else than digits.
-    while lives.isdigit() == False:
-        print("'" + lives + "'", "Is not a NUMBER.\n")
-        lives = input("Please enter the amount of lives you want to add: ")
+    # Checks whether the input values are valid, and keeps asking if not.
+    while True:
+        try:
+            if not secret_word.isalpha():
+                print("\n'" + secret_word + "'", "is not a WORD.")
+                raise Exception
+            elif not lives.isdigit():
+                print("\n'" + lives + "'", "Is not a NUMBER.")
+                raise Exception
+            break
+        except Exception: 
+            secret_word = getpass(prompt="Please enter the 'secret' word of your choice: ").upper()
+            lives = input("Please enter the amount of lives you want to add: ")
 
     hangman(secret_word, int(lives))
 

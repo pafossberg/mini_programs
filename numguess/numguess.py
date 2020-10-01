@@ -1,41 +1,65 @@
 from random import randint
 
-# Still need to comment out the code
-
-def limit():
-    turns = 0
-
+def get_limit():
+    # Get the number limit
     num_limit = input("Enter the amount of numbers, starting at 1: ")
+
+    # Validate the number limit
     while num_limit.isdigit() == False:
-        num_limit = input("'" + num_limit + "'" + "is not a number!: ")
- 
-    user_guess = input("\nTurn " + str(turns) + '\nGuess a number between 1 and ' + num_limit + ': ')
+        num_limit = input("'" + num_limit + "'" + "is not a number! Enter again: ")
+
+    return int(num_limit)
+
+def guess(num_limit, random_num):
+    # Set the turn to 1
+    turn = 1
+
+    # Get the first guess
+    user_guess = input("\nTurn " + str(turn) + '.\nGuess a number between 1 and ' + str(num_limit) + ': ')
+
+    # Validate the first guess
     while user_guess.isdigit() == False:
-        user_guess = input("'" + user_guess + "'" + "is not a number!: ")
+        user_guess = input("'" + user_guess + "'" + "is not a number! Guess again: ")
 
-    return number_guess(num_limit, user_guess, turns)
+    # While the users guess is not equal to the random number
+    while user_guess != random_num:
 
-
-def number_guess(num_limit, user_guess, turns):
-
-    num = randint(1, int(num_limit))
-    print(num)
-    while user_guess != str(num):
-
+        # If the guess is valid
         if user_guess.isdigit() == True:
+            # Convert the guess from a string to a integer
             user_guess = int(user_guess)
-            turns += 1
-            print("\nTurn", turns)
-            if user_guess == num:
+
+            # Increment the turn
+            turn += 1
+
+            # Print the turn number
+            print("\nTurn " + str(turn) + ".")
+
+            # If the guess was correct
+            if user_guess == random_num:
+                # Print message and break
                 print('Nice guess!')
                 break
-            elif user_guess < num:
+
+            # If the guess was lower than the random number
+            elif user_guess < random_num:
                 user_guess = input('You need to guess HIGHER: ')
-            elif user_guess > num:
+
+            # If the guess was higher than the random number
+            elif user_guess > random_num:
                 user_guess = input('You need to guess LOWER: ')
+        # Else if the guess is invalid
         else:
             user_guess = input("'" + user_guess + "'" + "is not a number!: ")
 
-    print("\n\n ----------Yay, you guessed the correct number '" + str(num) +  "'!----------\n\n")
+    print("\n\n ----------Yay, you guessed the correct number '" + str(random_num) +  "'!----------\n\n")
 
-limit()
+
+# Get the number limit
+num_limit = get_limit()
+
+# Get a random number
+random_num = randint(1, (num_limit + 1))
+
+# Call the main guessing loop
+guess(num_limit, random_num)

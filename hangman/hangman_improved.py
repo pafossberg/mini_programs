@@ -57,7 +57,7 @@ class Hangman:
         else:
             print('\nYAY! You guessed the word:', "'" + self.secret_word + "'", '!!')
 
-# un-comment line=63, and comment out line=62 to manually set attributes.
+# un-comment line=62, and comment out line=61 to manually set attributes.
 user = Hangman.getInput()
 # user = Hangman('eXampleWord', 10)
 
